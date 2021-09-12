@@ -1,0 +1,40 @@
+Public Function UPDATE() As Integer
+
+        Dim params() As SqlParameter = New SqlParameter(11) {}
+        params(0) = New SqlParameter("@PeriodType", SqlDbType.Int)
+        params(0).Value = Me.PeriodType
+        params(1) = New SqlParameter("@TeacherNum", SqlDbType.Int)
+        params(1).Value = Me.TeacherNum
+        params(2) = New SqlParameter("@PlaceNum", SqlDbType.Int)
+        params(2).Value = Me.PlaceNum
+        params(3) = New SqlParameter("@PeriodName", SqlDbType.NVarChar)
+        params(3).Value = Me.PeriodName
+        params(4) = New SqlParameter("@Capacity", SqlDbType.Int)
+        params(4).Value = Me.Capacity
+        params(5) = New SqlParameter("@StartDate", SqlDbType.DateTime)
+        params(5).Value = Me.StartDate
+        params(6) = New SqlParameter("@EndDate", SqlDbType.DateTime)
+        params(6).Value = Me.EndDate
+        params(7) = New SqlParameter("@TeacherPercent", SqlDbType.Decimal)
+        params(7).Value = Me.TeacherPercent
+        params(8) = New SqlParameter("@Price", SqlDbType.Decimal)
+        params(8).Value = Me.Price
+        params(9) = New SqlParameter("@PriceType", SqlDbType.Int)
+        params(9).Value = Me.PriceType
+        params(10) = New SqlParameter("@SessionCount", SqlDbType.Int)
+        params(10).Value = Me.SessionCount
+        params(11) = New SqlParameter("@GroupNum", SqlDbType.Int)
+        params(11).Value = Me.GroupNum
+
+        Me.PeriodNum = SqlHelper.ExecuteScalar(_Scon, CommandType.StoredProcedure, "LMSPeriod_UPD", params)
+        Try
+
+            If _Scon.State = ConnectionState.Open Then _Scon.Close()
+            Return Me.PeriodNum
+        Catch ex As Exception
+            If _Scon.State = ConnectionState.Open Then _Scon.Close()
+            'Dim _ClsSiteError As New ClsSiteError : _ClsSiteError.INSERT("ClsFactor", ex.ToString)
+            Return 0
+        End Try
+    End Function
+    
